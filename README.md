@@ -26,6 +26,15 @@ Run each component in a separate terminal:
 .venv/bin/uvicorn fde_assessment.task4_router:app --port 8004
 ```
 
+Run the complete local end-to-end demonstration (no external API keys needed):
+
+```bash
+./scripts/run_demo.sh
+```
+
+The script starts disposable mock MCP and LLM upstreams, exercises all four
+tasks, runs the complete test suite, and stops every process on exit.
+
 ## Task 1 — strict stdio MCP server
 
 `get_customer_record` accepts exactly `CUST-` plus five digits. `trigger_refund` also requires a finite positive numeric amount and a reason containing at least ten non-whitespace characters. Unknown fields and string-coerced numbers are rejected.
@@ -88,4 +97,3 @@ Token estimation is deliberately dependency-free (`ceil(serialized_prompt_chars 
 ## Test coverage
 
 The tests exercise strict validation and MCP error codes, downstream non-invocation for forbidden tools, transparent forwarding, PII split across both text and byte/SSE boundaries, SQLite window eviction, atomic concurrent reservations, and fallback on both `429` and timeout.
-
